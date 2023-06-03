@@ -1,0 +1,30 @@
+Relatório de todos os livros disponíveis na biblioteca:
+SELECT *
+FROM [Biblioteca].[Livro];
+
+Relatório de todos os usuários cadastrados na biblioteca:
+SELECT *
+FROM [Biblioteca].[usuario];
+
+Relatório de empréstimos de livros realizados:
+SELECT *
+FROM [Biblioteca].[Emprestimo];
+
+Relatório de empréstimos em aberto (livros não devolvidos):
+SELECT *
+FROM [Biblioteca].[Emprestimo]
+WHERE [DataDevolucao] IS NULL;
+
+Relatório de empréstimos por usuário:
+SELECT [usuario].[nome] AS Usuario, COUNT(*) AS TotalEmprestimos
+FROM [Biblioteca].[Emprestimo]
+JOIN [Biblioteca].[usuario] ON [Emprestimo].[ID_Usuario] = [usuario].[CPF]
+GROUP BY [usuario].[nome];
+
+Relatório de livros emprestados por usuário:
+SELECT [usuario].[nome] AS Usuario, COUNT(*) AS LivrosEmprestados
+FROM [Biblioteca].[Emprestimo]
+JOIN [Biblioteca].[usuario] ON [Emprestimo].[ID_Usuario] = [usuario].[CPF]
+WHERE [Emprestimo].[DataDevolucao] IS NULL
+GROUP BY [usuario].[nome];
+
